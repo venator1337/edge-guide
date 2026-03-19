@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Troubleshooting Microsoft Edge</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  .troubleshoot-guide {
+    font-family: 'Inter', sans-serif;
+    color: #1a1a2e;
+    background: #f5f7fb;
+    padding: 48px 24px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* Hero */
+  .troubleshoot-hero {
+    background: linear-gradient(135deg, #0f4c91 0%, #0078d4 55%, #00b7c3 100%);
+    border-radius: 20px;
+    padding: 48px 40px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+    color: white;
+  }
+
+  .troubleshoot-hero::before {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    pointer-events: none;
+  }
+
+  .troubleshoot-hero::after {
+    content: '';
+    position: absolute;
+    right: 60px; bottom: -60px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    backdrop-filter: blur(4px);
+  }
+
+  .hero-badge svg { width: 14px; height: 14px; }
+
+  .troubleshoot-hero h1 {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 14px;
+    letter-spacing: -0.02em;
+  }
+
+  .troubleshoot-hero p {
+    font-size: 16px;
+    opacity: 0.88;
+    max-width: 540px;
+    line-height: 1.7;
+  }
+
+  /* Section labels */
+  .section-label {
+    font-family: 'Sora', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #0078d4;
+    margin-bottom: 8px;
+  }
+
+  .section-heading {
+    font-family: 'Sora', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f1f3d;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  /* Fix steps */
+  .steps-section { margin-bottom: 48px; }
+
+  .fix-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .fix-step {
+    background: white;
+    border: 1px solid #e8edf5;
+    border-radius: 16px;
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 20px;
+    align-items: start;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fix-step::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #0078d4, #00b7c3);
+    border-radius: 3px 0 0 3px;
+  }
+
+  .fix-step:hover {
+    transform: translateX(4px);
+    box-shadow: 0 6px 24px rgba(0,120,212,0.1);
+  }
+
+  .fix-step-number {
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    background: linear-gradient(135deg, #0078d4, #00b7c3);
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .fix-step-icon {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, #eef4fc, #ddeeff);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .fix-step-icon svg { width: 20px; height: 20px; color: #0078d4; }
+
+  .fix-step-body h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #0f1f3d;
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .fix-step-body p {
+    font-size: 14px;
+    color: #5a6a82;
+    line-height: 1.65;
+  }
+
+  .fix-step-body .how-to {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0078d4;
+    background: #eef4fc;
+    border-radius: 8px;
+    padding: 5px 12px;
+  }
+
+  .fix-step-body .how-to svg { width: 11px; height: 11px; }
+
+  /* When to contact */
+  .contact-section { margin-bottom: 0; }
+
+  .contact-card {
+    background: white;
+    border: 1px solid #e8edf5;
+    border-radius: 16px;
+    padding: 32px 28px;
+  }
+
+  .contact-intro {
+    font-size: 14px;
+    color: #4a5a72;
+    line-height: 1.7;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #eef2f8;
+  }
+
+  .contact-triggers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+
+  .contact-trigger {
+    background: #fef6f6;
+    border: 1px solid #fadadd;
+    border-radius: 12px;
+    padding: 16px 18px 16px 44px;
+    position: relative;
+    font-size: 14px;
+    color: #5a2a2a;
+    line-height: 1.5;
+  }
+
+  .contact-trigger::before {
+    content: '!';
+    position: absolute;
+    left: 14px;
+    top: 16px;
+    width: 20px; height: 20px;
+    background: #e03030;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  .contact-cta {
+    background: linear-gradient(135deg, #0f4c91 0%, #0078d4 100%);
+    border-radius: 12px;
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .contact-cta-text h4 {
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .contact-cta-text p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .contact-cta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-family: 'Sora', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    white-space: nowrap;
+  }
+
+  .contact-cta-badge svg { width: 14px; height: 14px; }
+
+  .mb-40 { margin-bottom: 40px; }
+</style>
+</head>
+<body>
+
+<div class="troubleshoot-guide">
+
+  <!-- Hero -->
+  <div class="troubleshoot-hero">
+    <div class="hero-badge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      Troubleshooting
+    </div>
+    <h1>Edge not behaving?<br>Try these steps first.</h1>
+    <p>Before raising a support request, most Edge problems can be resolved in a few minutes. Work through the steps below — they fix the vast majority of common issues.</p>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps-section">
+    <div class="section-label">Start here</div>
+    <div class="section-heading">Try these fixes in order</div>
+
+    <div class="fix-steps">
+
+      <div class="fix-step">
+        <div class="fix-step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+        </div>
+        <div class="fix-step-body">
+          <h3>Check for updates</h3>
+          <p>An out-of-date browser is one of the most common causes of loading errors and instability. Head to <strong>Settings → Help and feedback → About Microsoft Edge</strong> — Edge will check for updates automatically and install them.</p>
+          <span class="how-to">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            Settings → Help &amp; feedback → About Microsoft Edge
+          </span>
+        </div>
+      </div>
+
+      <div class="fix-step">
+        <div class="fix-step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.36 6.64A9 9 0 0 1 20.77 15"/><path d="M6.16 6.16a9 9 0 1 0 12.68 12.68"/><path d="M12 2v4M2 12h4M12 18v4M18 12h4"/></svg>
+        </div>
+        <div class="fix-step-body">
+          <h3>Restart Edge — or your computer</h3>
+          <p>Close the browser completely (not just the window) and reopen it. If the issue persists, a full computer restart clears temporary problems that a browser restart alone can't fix.</p>
+        </div>
+      </div>
+
+      <div class="fix-step">
+        <div class="fix-step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </div>
+        <div class="fix-step-body">
+          <h3>Clear your browsing data</h3>
+          <p>If pages are loading incorrectly, showing outdated content, or behaving unexpectedly, clearing your cache and cookies is often the fix. This does not delete your bookmarks or passwords.</p>
+          <span class="how-to">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            Settings → Privacy, search &amp; services → Clear browsing data
+          </span>
+        </div>
+      </div>
+
+      <div class="fix-step">
+        <div class="fix-step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
+        </div>
+        <div class="fix-step-body">
+          <h3>Disable extensions temporarily</h3>
+          <p>If a problem appeared suddenly without any other changes, an extension is a likely culprit. Try disabling your extensions one by one to identify the cause — or open an InPrivate window, which runs without extensions by default.</p>
+          <span class="how-to">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            Settings → Extensions — or press Ctrl+Shift+N for InPrivate
+          </span>
+        </div>
+      </div>
+
+      <div class="fix-step">
+        <div class="fix-step-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 1 0 21 12"/><path d="M21 2v5h-5"/></svg>
+        </div>
+        <div class="fix-step-body">
+          <h3>Repair Edge</h3>
+          <p>If Edge still won't open or keeps crashing after all the above, use the built-in repair option. This fixes the browser installation without affecting your data or settings.</p>
+          <span class="how-to">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+            Windows Settings → Apps → Microsoft Edge → Modify → Repair
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- When to contact support -->
+  <div class="contact-section">
+    <div class="section-label">Still stuck?</div>
+    <div class="section-heading">When to contact the Service Desk</div>
+
+    <div class="contact-card">
+      <p class="contact-intro">If you've worked through the steps above and the problem continues, it's time to raise a support request. Contact the Service Desk if any of the following apply to you.</p>
+
+      <div class="contact-triggers">
+        <div class="contact-trigger">Edge still won't open after restarting your computer</div>
+        <div class="contact-trigger">Work websites consistently fail or won't load in Edge</div>
+        <div class="contact-trigger">Your bookmarks or browser data didn't transfer correctly</div>
+        <div class="contact-trigger">The issue is preventing you from doing your work</div>
+      </div>
+
+      <div class="contact-cta">
+        <div class="contact-cta-text">
+          <h4>Contact the Service Desk</h4>
+          <p>Use your usual support channel — details are in your team's IT contact page.</p>
+        </div>
+        <div class="contact-cta-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.1-1.1a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Get support
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
